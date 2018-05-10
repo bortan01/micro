@@ -1,0 +1,4 @@
+mount d d:/micro
+d:
+PATH d:/tasm
+cls

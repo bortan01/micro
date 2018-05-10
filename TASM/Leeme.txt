@@ -1,0 +1,32 @@
+Uso del compilador de Borland
+
+1.-) A partir del archivo en ensamblador 'nombre.ASM'
+
+tasm nombre.ASM
+
+Si no hubo errores se generara el archivo nombre.obj
+
+2.-) A partir del fichero objeto (.OBJ) 
+
+tlink nombre.obj
+
+Y si todo fue bien se tendra el ejecutable nombre.exe
+
+Ahora bien, si se quiere trabajar con el depurador (debugger)
+td, de forma comoda, las lineas de comando deberan de ser
+
+tasm nombre.asm /zi /l
+
+para obtener el .LST e incluir la informacion para que el 
+debugger pueda trabajar con el codigo fuente
+
+tlink nombre.obj /v
+
+para obtener el ejecutable
+
+tlink nombre.obj /t 
+
+para obtener el archivo .COM.
+
+
+
