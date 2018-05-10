@@ -5,6 +5,7 @@ MOVER macro simbolo,colo
 	mov dl,CoordenadaY
 	int 10h
 	
+	add colo,01h
 	
 	mov ah,06h
 	mov al,00h
@@ -33,14 +34,27 @@ endm
 	mov ax,@data
 	mov ds,ax
 	
+	
+		
+	abajo:
+		add CoordenadaX,01h
+		MOVER '$',pintado
+		jmp imprimir	
+	
+	zero:
+		mov pintado,0h
+		jmp imprimir
+	
 	derecha:
 		add CoordenadaY,01h
-		MOVER '#',4h
+		MOVER '#',pintado
 		jmp imprimir
-		
 	imprimir:
 		mov ah,10h ;leer teclado extendido
 		int 16h
+		
+		cmp pintado,09h
+			je zero
 		
 		cmp ah,48h
 			je arriba
@@ -54,16 +68,11 @@ endm
 			je salir
 	arriba:
 		sub CoordenadaX,01h
-		add pintado,01h
-		MOVER '@',2h
+		MOVER '@',pintado
 		jmp imprimir	
-	abajo:
-		add CoordenadaX,01h
-		MOVER '$',3h
-		jmp imprimir
 	izquierda:
 		sub CoordenadaY,01h
-		MOVER '%',5h
+		MOVER '%',pintado
 		jmp imprimir
 	salir:
 		.exit
