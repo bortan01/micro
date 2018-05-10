@@ -31,11 +31,17 @@ endm
 	mov ax,@data
 	mov ds,ax
 	
+	
+	abajo:
+		add CoordenadaX,01h
+		MOVER '$',3h
+		jmp imprimir	
+	
 	imprimir:
 		mov ah,10h ;leer teclado extendido
 		int 16h
 		
-		cmp ah,48
+		cmp ah,48h
 			je arriba
 		cmp ah,50h
 			je abajo
@@ -43,17 +49,13 @@ endm
 			je derecha
 		cmp ah,4bh
 			je izquierda
-		cmp ah,01h
-			;je salir
-		
+		cmp ah,1BH 
+			je salir
 	arriba:
 		sub CoordenadaX,01h
 		MOVER '@',2h
-		jmp imprimir
-	abajo:
-		add CoordenadaX,01h
-		MOVER '$',3h
 		jmp imprimir	
+	
 	derecha:
 		add CoordenadaY,01h
 		MOVER '#',4h
@@ -63,8 +65,12 @@ endm
 		MOVER '%',5h
 		jmp imprimir
 	salir:
-		mov ah, 04Ch 
-		int 21h
+		;mov ah, 1BH 
+		;int 21h
+		
+		mov ah, 02h ; funcion para imprimir un caracter
+       mov dx, 'A' ; mover un 64 a Dx para imprimir en pantalla
+      int 21h ; ejecuta la funcion
 		
 	end inicio
 	
