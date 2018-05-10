@@ -1,13 +1,19 @@
-MOVER macro
+MOVER macro simbolo,colo
 	mov bh,0
 	mov ah,02h;mover el cursor a una coordenada
 	mov dh,CoordenadaX
 	mov dl,CoordenadaY
 	int 10h
 	
+	mov ah,06h
+	add bh,colo
+	mov cx,0000h
+	mov dx,184fh
+	int 10h
+	
 	;imprimiedo en caracter
 	mov ah,02h
-    mov dl, '#'
+    mov dl, simbolo
 	int 21h
 endm
 
@@ -37,33 +43,29 @@ endm
 			je derecha
 		cmp ah,4bh
 			je izquierda
-					
-		
 		cmp ah,01h
 			je salir
 		
 	arriba:
 		sub CoordenadaX,01h
-		MOVER
+		MOVER '@',2h
 		jmp imprimir
 	abajo:
 		add CoordenadaX,01h
-		MOVER
+		MOVER '$',3h
 		jmp imprimir	
 	derecha:
 		add CoordenadaY,01h
-		MOVER
+		MOVER '#',4h
 		jmp imprimir	
 	izquierda:
 		sub CoordenadaY,01h
-		MOVER
+		MOVER '%',5h
 		jmp imprimir
-	
-	
-	
-		
-	salir:
-		.exit                        
+	salir proc near 
+		.exit
+		ret
+	salir endp
 
 	
 	end inicio
