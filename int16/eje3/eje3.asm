@@ -44,7 +44,7 @@ endm
 		cmp ah,4bh
 			je izquierda
 		cmp ah,01h
-			je salir
+			;je salir
 		
 	arriba:
 		sub CoordenadaX,01h
@@ -62,12 +62,10 @@ endm
 		sub CoordenadaY,01h
 		MOVER '%',5h
 		jmp imprimir
-	salir proc near 
-		.exit
-		ret
-	salir endp
-
-	
+	salir:
+		mov ah, 04Ch 
+		int 21h
+		
 	end inicio
 	
 	
