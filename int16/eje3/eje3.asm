@@ -5,11 +5,14 @@ MOVER macro simbolo,colo
 	mov dl,CoordenadaY
 	int 10h
 	
+	
 	mov ah,06h
+	mov al,00h
 	add bh,colo
 	mov cx,0000h
 	mov dx,184fh
 	int 10h
+	
 	
 	;imprimiedo en caracter
 	mov ah,02h
@@ -22,21 +25,19 @@ endm
 .model small
 .stack
 .data
-	CoordenadaX  db 0ch
-	CoordenadaY  db 28h
-	
-	
+	CoordenadaX db 0ch
+	CoordenadaY db 28h
+	pintado db 0h
 .code
 	inicio:
 	mov ax,@data
 	mov ds,ax
 	
-	
-	abajo:
-		add CoordenadaX,01h
-		MOVER '$',3h
-		jmp imprimir	
-	
+	derecha:
+		add CoordenadaY,01h
+		MOVER '#',4h
+		jmp imprimir
+		
 	imprimir:
 		mov ah,10h ;leer teclado extendido
 		int 16h
@@ -49,29 +50,25 @@ endm
 			je derecha
 		cmp ah,4bh
 			je izquierda
-		cmp ah,1BH 
+		cmp ah,01h
 			je salir
 	arriba:
 		sub CoordenadaX,01h
+		add pintado,01h
 		MOVER '@',2h
 		jmp imprimir	
-	
-	derecha:
-		add CoordenadaY,01h
-		MOVER '#',4h
-		jmp imprimir	
+	abajo:
+		add CoordenadaX,01h
+		MOVER '$',3h
+		jmp imprimir
 	izquierda:
 		sub CoordenadaY,01h
 		MOVER '%',5h
 		jmp imprimir
 	salir:
-		;mov ah, 1BH 
-		;int 21h
+		.exit
 		
-		mov ah, 02h ; funcion para imprimir un caracter
-       mov dx, 'A' ; mover un 64 a Dx para imprimir en pantalla
-      int 21h ; ejecuta la funcion
-		
+			
 	end inicio
 	
 	
