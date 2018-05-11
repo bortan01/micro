@@ -1,4 +1,4 @@
-LEER_LETRA MACRO ;Equivalente de ReadKey en otros lenguajes
+LEER_LETRA MACRO ;Equivalente de ReadKey en Inicios lenguajes
 	MOV AH,10h ;CAPTURA DESDE TECLADO 01
 	INT 16h ;INTERRUPCION DE 16H ENTRADA/SALIDA DE TECLADO INT 21
 ENDM
@@ -34,7 +34,7 @@ ENDM
 .STARTUP
 	IMPRIMIR letra
 	SALTO
-	OTRO:LEER_LETRA ; esperar por tecla
+	Inicio:LEER_LETRA ; esperar por tecla
 
 	CMP AH,52h
 		JE Insert;Si es igual a 52
@@ -54,28 +54,28 @@ ENDM
 	CMP AL,1BH ;
 	JE SALIR ;Etiqueta que va a donde se regresa a modo MSDOS, y termina el
 
-	JNE OTRO ;Otra iteración o ciclo (Leemos otra tecla para mover punto) si es que no preciono ninguna tecla definida si no es igual 
+	JNE Inicio ;Otra iteración o ciclo (Leemos otra tecla para mover punto) si es que no preciono ninguna tecla definida si no es igual 
 	
 	
 	F1:	IMPRIMIR letra2
 		SALTO
-		JMP OTRO
+		JMP Inicio
 	F2:	IMPRIMIR letra3
 		SALTO
-		JMP OTRO
+		JMP Inicio
 	F3:	
 		IMPRIMIR letra4
 		SALTO
-		JMP OTRO
+		JMP Inicio
 	F4:
 		IMPRIMIR letra5
 		SALTO 
-		JMP OTRO
+		JMP Inicio
 	
 	Insert:
 		imprimir letra6
 		SALTO
-		JMP OTRO
+		JMP Inicio
 	SALIR: ;Etiqueta que representa el final de la aplicación.
 	.EXIT
 		
