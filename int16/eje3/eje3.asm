@@ -5,7 +5,7 @@ MOVER macro simbolo,colo
 	mov dl,CoordenadaY
 	int 10h
 	
-	;add colo,01h
+	add colo,01h
 	
 	;mov ah,06h
 	;mov al,00h
@@ -16,9 +16,20 @@ MOVER macro simbolo,colo
 	
 	
 	;imprimiedo en caracter
-	mov ah,09h ; equivalente por 02
-    mov dl, simbolo
-	int 10h ; equivalente por 21
+	;mov ah,09h ; equivalente por 02
+    ;mov dl, simbolo
+	;int 10h ; equivalente por 21
+	
+	mov cx,1h ; cantidad de caracteres iguales
+	mov ah,9h ;escribir atributo o cuaracter en el cursor
+	mov al, simbolo;
+	mov bh,0h;pagina de video		
+	mov bl,colo; color
+	;mov cx,37h; numero de veces
+	int 10h;llamar a la vios
+	
+	
+	
 endm
 
 
