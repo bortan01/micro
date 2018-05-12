@@ -9,33 +9,10 @@ MOSTRAR_MENSAJE MACRO texto
 	int 21h
 ENDM  
 
-ASIGNAR_COLOR MACRO pintura
-   
-   push ax
-   push bx
-   push cx
-   push dx
-   
-    mov ah,06h
-	mov al,00h
-	mov bh,pintura
-	mov cx,0000h
-	mov dx,184fh
-	int 10h  
-	
-	pop dx
-	pop cx
-	pop bx
-	pop ax
-	
-ENDM
 
-GOTOXY MACRO caracter
-PUSH AX
-PUSH BX
-PUSH CX
-PUSH DX
-    PUSH AX
+
+GOTOXY MACRO caracter,colo
+           PUSH AX
 	PUSH BX
 	PUSH CX
 	PUSH DX   
@@ -44,15 +21,15 @@ PUSH DX
 	mov ah,02h;mover el cursor a una coordenada
 	mov dl,CoordenadaX
 	mov dh,CoordenadaY
-	;add CoordenadaY,01h
 	int 10h
-
+                                                      	
+	mov cx,1
+	mov ah,9h ;escribir atributo o cuaracter en el cursor
+	mov al,caracter;codigo assci de la arroba
+	mov bh,0h;pagina de video		
+	mov bl,colo; color
+	int 10h;llamar a la vios
 	
-	
-	;imprimiendo caracter
-	mov ah,02h
-	mov dl,caracter
-	int 21h
 
 	POP DX
 	POP CX
@@ -78,7 +55,7 @@ inicio:
 	mov ax,@data
 	mov ds,ax
             
-    ASIGNAR_COLOR 02h      
+         
             
          
 	MOSTRAR_MENSAJE mensaje1
@@ -121,33 +98,33 @@ inicio:
 		.exit
 
 	arriba:
-	    ASIGNAR_COLOR 03h
+	
 		sub CoordenadaY,01h
-		GOTOXY vtext[si-1]
+		GOTOXY vtext[si-1],02h
 		dec si
 		loop arriba
 		
 		jmp pedir_tecla
 	abajo:
-	    ASIGNAR_COLOR 04h
+	    
 		add CoordenadaY,01h
-		GOTOXY vtext[si-1]
+		GOTOXY vtext[si-1],03h
 		dec si
 		loop abajo
 		
 		jmp pedir_tecla
 	derecha:
-	    ASIGNAR_COLOR 05h
+	   
 		sub CoordenadaX,01h
-		GOTOXY vtext[si-1]
+		GOTOXY vtext[si-1],04h
 		dec si
 		loop derecha
 	
 		jmp pedir_tecla
 	izquierda:          
-	    ASIGNAR_COLOR 06h
+	
 		add CoordenadaX,01h
-		GOTOXY vtext[si-1]
+		GOTOXY vtext[si-1],05h
 		dec si
 		loop izquierda
 		
