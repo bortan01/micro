@@ -5,20 +5,20 @@ MOVER macro simbolo,colo
 	mov dl,CoordenadaY
 	int 10h
 	
-	add colo,01h
+	;add colo,01h
 	
-	mov ah,06h
-	mov al,00h
-	add bh,colo
-	mov cx,0000h
-	mov dx,184fh
-	int 10h
+	;mov ah,06h
+	;mov al,00h
+	;add bh,colo
+	;mov cx,0000h
+	;mov dx,184fh
+	;int 10h
 	
 	
 	;imprimiedo en caracter
-	mov ah,02h
+	mov ah,09h ; equivalente por 02
     mov dl, simbolo
-	int 21h
+	int 10h ; equivalente por 21
 endm
 
 
