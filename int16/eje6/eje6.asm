@@ -7,6 +7,27 @@ MOSTRAR_MENSAJE MACRO texto
 	mov ah,09h
 	mov dx, offset texto
 	int 21h
+ENDM  
+
+ASIGNAR_COLOR MACRO pintura
+   
+   push ax
+   push bx
+   push cx
+   push dx
+   
+    mov ah,06h
+	mov al,00h
+	mov bh,pintura
+	mov cx,0000h
+	mov dx,184fh
+	int 10h  
+	
+	pop dx
+	pop cx
+	pop bx
+	pop ax
+	
 ENDM
 
 GOTOXY MACRO caracter
@@ -14,7 +35,11 @@ PUSH AX
 PUSH BX
 PUSH CX
 PUSH DX
-
+    PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX   
+	
 	mov bh,0
 	mov ah,02h;mover el cursor a una coordenada
 	mov dl,CoordenadaX
@@ -22,6 +47,8 @@ PUSH DX
 	;add CoordenadaY,01h
 	int 10h
 
+	
+	
 	;imprimiendo caracter
 	mov ah,02h
 	mov dl,caracter
@@ -50,7 +77,10 @@ ENDM
 inicio:
 	mov ax,@data
 	mov ds,ax
-
+            
+    ASIGNAR_COLOR 02h      
+            
+         
 	MOSTRAR_MENSAJE mensaje1
 
 	capturar_cadena: ;aca comienzo a pedir letra x letra de la cadena
@@ -91,6 +121,7 @@ inicio:
 		.exit
 
 	arriba:
+	    ASIGNAR_COLOR 03h
 		sub CoordenadaY,01h
 		GOTOXY vtext[si-1]
 		dec si
@@ -98,6 +129,7 @@ inicio:
 		
 		jmp pedir_tecla
 	abajo:
+	    ASIGNAR_COLOR 04h
 		add CoordenadaY,01h
 		GOTOXY vtext[si-1]
 		dec si
@@ -105,13 +137,15 @@ inicio:
 		
 		jmp pedir_tecla
 	derecha:
+	    ASIGNAR_COLOR 05h
 		sub CoordenadaX,01h
 		GOTOXY vtext[si-1]
 		dec si
 		loop derecha
 	
 		jmp pedir_tecla
-	izquierda:
+	izquierda:          
+	    ASIGNAR_COLOR 06h
 		add CoordenadaX,01h
 		GOTOXY vtext[si-1]
 		dec si

@@ -50,7 +50,7 @@ endm
 		MOVER '#',pintado
 		jmp imprimir
 	imprimir:
-		mov ah,00h ;leer teclado extendido
+		mov ah,00h ;leer teclado extendido tambien con 10h
 		int 16h
 		
 		cmp pintado,09h
