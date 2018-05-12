@@ -8,7 +8,30 @@ MOSTRAR_MENSAJE MACRO texto
 	mov dx, offset texto
 	int 21h
 ENDM
-
+GOTOXY MACRO caracter 
+	PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX
+	
+	mov bh,0
+	mov ah,02h;mover el cursor a una coordenada
+	mov dl,CoordenadaX
+	mov dh,CoordenadaY
+	add CoordenadaY,01h
+	int 10h
+	
+	;imprimiendo caracter
+	mov ah,02h
+	mov dl,caracter 
+	int 21h
+		
+	POP DX
+	POP CX
+	POP BX
+	POP AX
+	
+ENDM
 
 .model small
 .stack
@@ -20,6 +43,8 @@ ENDM
 	T3 db 13,10, "MENSAJE 3 ", 13,10, '$'
 	T4 db 13,10, "MENSAJE 4 ", 13,10, '$'
 	
+	CoordenadaX db 14h
+	CoordenadaY db 0ch
 	
 	vtext db 10 dup('$')
 	aux db ?
@@ -46,6 +71,9 @@ inicio:
 	
 	pedir_tecla:
 		CAPTURAR_TECLA  ; HACEMOS LA PETICION DE LA TECLA
+		mov cl,contador
+        mov si,cx;
+		
 		cmp ah,48h
 			je arriba
 		cmp ah,50h
@@ -56,19 +84,33 @@ inicio:
 			je izquierda
 		cmp ah,01h
 			je salir
-	arriba: 
-		MOSTRAR_MENSAJE T1
-		jmp pedir_tecla
-	abajo:
-		MOSTRAR_MENSAJE T2
-		jmp pedir_tecla
-	derecha:
-		MOSTRAR_MENSAJE T3
-		jmp pedir_tecla
-	izquierda:
-		MOSTRAR_MENSAJE T4
-		jmp pedir_tecla
+	
 	salir:
 		.exit
+	arriba: 
+		add CoordenadaY,01h
+		GOTOXY vtext[si-1]
+		dec si 
+		loop arriba
+		
+		jmp pedir_tecla
+	abajo:
+		GOTOXY '2'
+		jmp pedir_tecla
+	derecha:
+		GOTOXY '3'
+		jmp pedir_tecla
+	izquierda:
+		GOTOXY '4'
+		jmp pedir_tecla
+	
+	for_1 proc near
+		mov cl,contador
+        mov si,cx;  
+		add CoordenadaY,01h
+		GOTOXY vtext[1]    
+		ret
+	for_1 endp
+		
 	
 end inicio

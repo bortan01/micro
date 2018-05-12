@@ -15,7 +15,7 @@
 msj1 db 13,10, "Escriba la cadena: ", "$"
 msj2 db 13,10, "Presione una tecla para salir: ", "$"
 aux     db   ?
-contar    db ? 
+contador    db ? 
 pa_abajo db ?
 .CODE
 
@@ -43,7 +43,7 @@ mov ax,0000
 imprimir:
 call limpiar 
 mov cx,si;asigno a cx el valor final del contador
-mov contar,cl
+mov contador,cl
                          
 jugar:;COMIENZO A JUGAR AVER SI ME FUNCIONA
 
@@ -160,7 +160,7 @@ dec si
 sub cl,01
 cmp si,00  ;Se repite el ingreso de datos hasta que se teclee un Enter.
 ja for
-mov cl,contar;anteriormente guardo la cantidad de letras que son para otra accion como las dec
+mov cl,contador;anteriormente guardo la cantidad de letras que son para otra accion como las dec
 mov si,cx; para imprimir las letras que tien el vector
 jb for
  
@@ -170,7 +170,7 @@ vas_derecha endp
 vas_abajo proc near
 for1:
 call cursor_ver
-mov al,vtext[si-1] 
+mov al,vtext[0] 
 mov ah,14
 mov bh,0
 mov ah,09h
@@ -188,7 +188,7 @@ dec si
 sub cl,01
 cmp si,00  ;Se repite el ingreso de datos hasta que se teclee un Enter.
 ja for1
-mov cl,contar;anteriormente guardo la cantidad de letras que son para otra accion como las dec
+mov cl,contador;anteriormente guardo la cantidad de letras que son para otra accion como las dec
 mov si,cx; para imprimir las letras que tien el vector
 jb for1
  
@@ -216,7 +216,7 @@ dec si
 sub cl,01
 cmp si,00  ;Se repite el ingreso de datos hasta que se teclee un Enter.
 ja for2
-mov cl,contar;anteriormente guardo la cantidad de letras que son para otra accion como las dec
+mov cl,contador;anteriormente guardo la cantidad de letras que son para otra accion como las dec
 mov si,cx; para imprimir las letras que tien el vector
 jb for2
  
