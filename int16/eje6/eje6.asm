@@ -12,8 +12,8 @@ ENDM
 
 
 GOTOXY MACRO caracter,colo
-           PUSH AX
-	PUSH BX
+    PUSH AX
+	pUSH BX
 	PUSH CX
 	PUSH DX   
 	
@@ -69,7 +69,9 @@ inicio:
 		inc si   ;Incrementamos nuestro contador
 		cmp al,0dh  ;Se repite el ingreso de datos hasta que se teclee un Enter.
 		ja capturar_cadena
-
+        
+        DEC SI
+        
 		mov cx,si
 		mov contador,cl
 
@@ -98,36 +100,32 @@ inicio:
 		.exit
 
 	arriba:
-	
+	  GOTOXY vtext[si-1],02h
+		dec si        
 		sub CoordenadaY,01h
-		GOTOXY vtext[si-1],02h
-		dec si
 		loop arriba
 		
 		jmp pedir_tecla
 	abajo:
-	    
+	 	GOTOXY vtext[si-1],03h
+		dec si   
 		add CoordenadaY,01h
-		GOTOXY vtext[si-1],03h
-		dec si
 		loop abajo
-		
 		jmp pedir_tecla
 	derecha:
-	   
-		sub CoordenadaX,01h
-		GOTOXY vtext[si-1],04h
-		dec si
-		loop derecha
-	
-		jmp pedir_tecla
-	izquierda:          
-	
+	   	GOTOXY vtext[si-1],04h
+		dec si      
 		add CoordenadaX,01h
-		GOTOXY vtext[si-1],05h
-		dec si
+		;MOV CoordenadaY, 13
+		loop derecha
+	 	jmp pedir_tecla
+	izquierda:          
+	   	GOTOXY vtext[si-1],05h
+		dec si 
+		sub CoordenadaX,01h
 		loop izquierda
+		jmp pedir_tecla  
 		
-		jmp pedir_tecla
+		
 end inicio
 

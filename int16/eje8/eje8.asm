@@ -1,33 +1,14 @@
 MOVER macro simbolo,colo
 	mov bh,0
 	mov ah,02h;mover el cursor a una coordenada
-	mov dh,CoordenadaX
-	mov dl,CoordenadaY
+	mov DL,CoordenadaX
+	mov CL,CoordenadaY
 	int 10h
 	
-	add colo,01h
-	
-	;mov ah,06h
-	;mov al,00h
-	;add bh,colo
-	;mov cx,0000h
-	;mov dx,184fh
-	;int 10h
-	
-	
-	;imprimiedo en caracter
-	;mov ah,09h ; equivalente por 02
-    ;mov dl, simbolo
-	;int 10h ; equivalente por 21
-	
-	mov cx,1h ; cantidad de caracteres iguales
-	mov ah,9h ;escribir atributo o cuaracter en el cursor
-	mov al, simbolo;
-	mov bh,0h;pagina de video		
-	mov bl,colo; color
-	;mov cx,37h; numero de veces
-	int 10h;llamar a la vios
-	
+	mov ah,0Ch	; Dibujar pixel
+	mov al,colo	; Color Verde
+	int 10h
+	add pintado,01h
 	
 	
 endm
@@ -39,13 +20,19 @@ endm
 .data
 	CoordenadaX db 0ch
 	CoordenadaY db 28h
-	pintado db 0h
+	pintado db 1h
 .code
 	inicio:
 	mov ax,@data
 	mov ds,ax
 	
-	
+	mov ax,0013h	; Función modo Grafico
+	int 10h
+	mov cx,00A0h	; Establecer coordenada X
+	mov dx,0064h	; Establecer coordenada Y
+	mov ah,0Ch	; Dibujar pixel
+	mov al,07h	; Color Blanco
+	int 10h
 		
 	abajo:
 		add CoordenadaX,01h
