@@ -60,7 +60,7 @@ inicio:
             
      
          
-	MOSTRAR_MENSAJE mensaje1
+	MOSTRAR_MENSAJE "ESTE ES OTRO MENSAJE",13,10, "$"
 
 	capturar_cadena: ;aca comienzo a pedir letra x letra de la cadena
 		mov ax,0000
@@ -93,18 +93,26 @@ inicio:
 		cmp ah,4dh
 			je derecha
 		cmp ah,4bh
-			je izquierda
+			je izquierda 
+		cmp ah,3Ch
+			je diagonal
 		cmp ah,01h
 			je salir
 
 	salir:
-		.exit
+		.exit 
+		
+	diagonal: 
+	    mov ax,contador
+	    sub al,01h
+	    sub CoordenadaY,al ; -5-1
+	 	jmp posicion_3
+	    
 	arriba:                         
 	    GOTOXY vtext[si-1],Azul
 		dec si        
 		sub CoordenadaY,01h
 		loop arriba
-		
 		jmp pedir_tecla
 	abajo: 
 	    mov ax,contador
@@ -138,7 +146,14 @@ inicio:
 		dec si 
 		sub CoordenadaX,01h
 		loop posicion_2
-		jmp pedir_tecla		
+		jmp pedir_tecla	
+	posicion3:
+		GOTOXY vtext[si-1],Azul
+		dec si 
+		add CoordenadaX,01h       
+		add CoordenadaY,01h
+		loop posicion3
+		jmp pedir_tecla
 	    
 end inicio
 
