@@ -106,14 +106,18 @@ inicio:
 		loop arriba
 		
 		jmp pedir_tecla
-	abajo:
-	    mov CoordenadaX,18h ; +5-1
-	    mov CoordenadaY,08h ; -5-1
+	abajo: 
+	    mov ax,contador
+	    sub al,01h
+	    add CoordenadaX,al ; +5-1
+	    sub CoordenadaY,al ; -5-1
 	 	jmp posicion_1  
 	 	 
-   izquierda: 
-        mov CoordenadaX,18h ; +5-1
-	    mov CoordenadaY,08h ; -5-1
+   izquierda:
+        mov ax,contador
+	    sub al,01h 
+        add CoordenadaX,al ; +5-1
+	    sub CoordenadaY,al ; -5-1
 	 	jmp posicion_2         
 	   	 	
 	derecha:
