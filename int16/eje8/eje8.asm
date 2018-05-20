@@ -13,8 +13,6 @@ MOVER macro simbolo,colo
 	
 endm
 
-
-
 .model small
 .stack
 .data
@@ -27,12 +25,11 @@ endm
 	mov ds,ax
 	
 	mov ax,0013h	; Función modo Grafico
-	int 10h
-	mov cx,00A0h	; Establecer coordenada X
-	mov dx,0064h	; Establecer coordenada Y
-	mov ah,0Ch	; Dibujar pixel
-	mov al,07h	; Color Blanco
-	int 10h
+	int 10h         ;inicializacion de modo grafico  
+	
+	MOVER '$',pintado
+	
+	if (CoordenadaX == 01h)
 		
 	abajo:
 		add CoordenadaX,01h
@@ -40,7 +37,7 @@ endm
 		jmp imprimir	
 	
 	zero:
-		mov pintado,0h
+		mov pintado,1h
 		jmp imprimir
 	
 	derecha:
@@ -78,6 +75,8 @@ endm
 			
 	end inicio
 	
+
+
 	
 ;mov ah, 02h ; funcion para imprimir un caracter
 ;mov dx, '$' ; mover un 64 a Dx para imprimir en pantalla
