@@ -21,9 +21,9 @@ endm
 	CoordenadaY db 28h
 	pintado db 1h
 	
-	Azul db 09h
+	Rojo db 12
+	Azul db 09
 	Verde db 10
-	Rojo db 04h
 	Amarillo db 14
 .code
 	inicio:
