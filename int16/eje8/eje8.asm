@@ -3,8 +3,8 @@ MOVER macro colo
 
 	mov bh,0
 	mov ah,02h;mover el cursor a una coordenada
-	mov DL,CoordenadaX
-	mov CL,CoordenadaY
+	mov Dx,CoordenadaX
+	mov Cx,CoordenadaY
 	int 10h
 	
 	mov ah,0Ch	; Dibujar pixel
@@ -18,11 +18,11 @@ endm
 .model small
 .stack
 .data
-	CoordenadaX db 0h
-	CoordenadaY db 0h
+	CoordenadaX dw 10
+	CoordenadaY dw 10
 	pintado db 1h
 	
-	Rojo db 12
+	Rojo db 12 ;4   12   13
 	Azul db 09
 	Verde db 10
 	Amarillo db 14
