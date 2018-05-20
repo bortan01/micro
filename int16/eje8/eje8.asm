@@ -11,6 +11,7 @@ MOVER macro simbolo,colo
 	add pintado,01h
 	
 	
+	
 endm
 
 .model small
@@ -19,6 +20,11 @@ endm
 	CoordenadaX db 0ch
 	CoordenadaY db 28h
 	pintado db 1h
+	
+	Azul db 09h
+	Verde db 10
+	Rojo db 04h
+	Amarillo db 14
 .code
 	inicio:
 	mov ax,@data
@@ -27,13 +33,12 @@ endm
 	mov ax,0013h	; Función modo Grafico
 	int 10h         ;inicializacion de modo grafico  
 	
-	MOVER '$',pintado
+	MOVER '$',Rojo
 	
-	if (CoordenadaX == 01h)
 		
 	abajo:
 		add CoordenadaX,01h
-		MOVER '$',pintado
+		MOVER '$',Azul
 		jmp imprimir	
 	
 	zero:
@@ -42,7 +47,7 @@ endm
 	
 	derecha:
 		add CoordenadaY,01h
-		MOVER '#',pintado
+		MOVER '#',Verde
 		jmp imprimir
 	imprimir:
 		mov ah,00h ;leer teclado extendido tambien con 10h
@@ -63,11 +68,11 @@ endm
 			je salir
 	arriba:
 		sub CoordenadaX,01h
-		MOVER '@',pintado
+		MOVER '@',Amarillo
 		jmp imprimir	
 	izquierda:
 		sub CoordenadaY,01h
-		MOVER '%',pintado
+		MOVER '%',Rojo
 		jmp imprimir
 	salir:
 		.exit
