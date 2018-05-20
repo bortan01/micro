@@ -52,6 +52,7 @@ ENDM
 	Azul db 09
 	Verde db 10
 	Amarillo db 14
+	Blanco db 15
 
 .code
 inicio:
@@ -60,7 +61,7 @@ inicio:
             
      
          
-	MOSTRAR_MENSAJE "ESTE ES OTRO MENSAJE",13,10, "$"
+	MOSTRAR_MENSAJE mensaje1
 
 	capturar_cadena: ;aca comienzo a pedir letra x letra de la cadena
 		mov ax,0000
@@ -105,8 +106,8 @@ inicio:
 	diagonal: 
 	    mov ax,contador
 	    sub al,01h
-	    sub CoordenadaY,al ; -5-1
-	 	jmp posicion_3
+	    add CoordenadaX,al ; -5-1
+	 	jmp posicion3
 	    
 	arriba:                         
 	    GOTOXY vtext[si-1],Azul
@@ -148,10 +149,10 @@ inicio:
 		loop posicion_2
 		jmp pedir_tecla	
 	posicion3:
-		GOTOXY vtext[si-1],Azul
+		GOTOXY vtext[si-1],Blanco
 		dec si 
-		add CoordenadaX,01h       
-		add CoordenadaY,01h
+		sub CoordenadaX,01h       
+		sub CoordenadaY,01h
 		loop posicion3
 		jmp pedir_tecla
 	    
