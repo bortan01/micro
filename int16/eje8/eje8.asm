@@ -1,4 +1,6 @@
-MOVER macro simbolo,colo
+MOVER macro colo
+
+
 	mov bh,0
 	mov ah,02h;mover el cursor a una coordenada
 	mov DL,CoordenadaX
@@ -11,14 +13,13 @@ MOVER macro simbolo,colo
 	add pintado,01h
 	
 	
-	
 endm
 
 .model small
 .stack
 .data
-	CoordenadaX db 0ch
-	CoordenadaY db 28h
+	CoordenadaX db 0h
+	CoordenadaY db 0h
 	pintado db 1h
 	
 	Rojo db 12
@@ -33,28 +34,20 @@ endm
 	mov ax,0013h	; Función modo Grafico
 	int 10h         ;inicializacion de modo grafico  
 	
-	MOVER '$',Rojo
+	MOVER Rojo
 	
-		
-	abajo:
-		add CoordenadaX,01h
-		MOVER '$',Azul
-		jmp imprimir	
-	
-	zero:
-		mov pintado,1h
-		jmp imprimir
 	
 	derecha:
 		add CoordenadaY,01h
-		MOVER '#',Verde
+		MOVER Verde
 		jmp imprimir
+	arriba:
+		sub CoordenadaX,01h
+		MOVER Amarillo
+		jmp imprimir		
 	imprimir:
 		mov ah,00h ;leer teclado extendido tambien con 10h
 		int 16h
-		
-		cmp pintado,15
-			je zero
 		
 		cmp ah,48h
 			je arriba
@@ -66,18 +59,19 @@ endm
 			je izquierda
 		cmp ah,01h
 			je salir
-	arriba:
-		sub CoordenadaX,01h
-		MOVER '@',Amarillo
-		jmp imprimir	
-	izquierda:
-		sub CoordenadaY,01h
-		MOVER '%',Rojo
-		jmp imprimir
 	salir:
 		.exit
-		
-			
+	abajo:
+		add CoordenadaX,01h
+		MOVER Azul
+		jmp imprimir
+	izquierda:
+		sub CoordenadaY,01h
+		MOVER Rojo
+		jmp imprimir
+	
+	
+	
 	end inicio
 	
 

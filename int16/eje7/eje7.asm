@@ -6,7 +6,7 @@ inicio:
 mov ax,@data	; Cajon
 mov ds,ax
 
-;mov ax,0013h	; Función modo Grafico
+mov ax,0013h	; Función modo Grafico
 int 10h
 mov cx,00A0h	; Establecer coordenada X
 mov dx,0064h	; Establecer coordenada Y
