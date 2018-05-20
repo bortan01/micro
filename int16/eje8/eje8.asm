@@ -10,7 +10,6 @@ MOVER macro colo
 	mov ah,0Ch	; Dibujar pixel
 	mov al,colo	; Color Verde
 	int 10h
-	add pintado,01h
 	
 	
 endm

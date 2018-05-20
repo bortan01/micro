@@ -46,17 +46,21 @@ ENDM
 
 	CoordenadaX db 14h
 	CoordenadaY db 0ch
-
 	vtext db 10 dup('$')
 	aux db ?
-	contador db  ?
+	contador dw  ?
+	
+	Rojo db 12 ;4   12   13
+	Azul db 09
+	Verde db 10
+	Amarillo db 14
+
 .code
 inicio:
 	mov ax,@data
 	mov ds,ax
             
-         
-            
+     
          
 	MOSTRAR_MENSAJE mensaje1
 
@@ -70,10 +74,10 @@ inicio:
 		cmp al,0dh  ;Se repite el ingreso de datos hasta que se teclee un Enter.
 		ja capturar_cadena
         
-        DEC SI
+        DEC SI; papra borrar el caracter del enter
         
-		mov cx,si
-		mov contador,cl
+	
+		mov contador,si
 
 	pedir_tecla:
 		CAPTURAR_TECLA  ; HACEMOS LA PETICION DE LA TECLA
@@ -98,34 +102,33 @@ inicio:
 
 	salir:
 		.exit
-
 	arriba:
-	  GOTOXY vtext[si-1],02h
+	  GOTOXY vtext[si-1],Azul
 		dec si        
 		sub CoordenadaY,01h
 		loop arriba
-		
 		jmp pedir_tecla
 	abajo:
-	 	GOTOXY vtext[si-1],03h
+	 	GOTOXY vtext[si-1],Amarillo
 		dec si   
 		add CoordenadaY,01h
 		loop abajo
 		jmp pedir_tecla
+		
+	izquierda:          
+	   	GOTOXY vtext[si-1],Rojo
+		dec si 
+		sub CoordenadaX,01h
+		loop izquierda
+		jmp pedir_tecla  	
 	derecha:
-	   	GOTOXY vtext[si-1],04h
+	   	GOTOXY vtext[si-1],Verde
 		dec si      
 		add CoordenadaX,01h
 		;MOV CoordenadaY, 13
 		loop derecha
-	 	jmp pedir_tecla
-	izquierda:          
-	   	GOTOXY vtext[si-1],05h
-		dec si 
-		sub CoordenadaX,01h
-		loop izquierda
-		jmp pedir_tecla  
-		
-		
+	 	jmp pedir_tecla	
+	
+	
 end inicio
 
