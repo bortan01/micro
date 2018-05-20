@@ -12,10 +12,9 @@ ENDM
 
 
 GOTOXY MACRO caracter,colo
-    PUSH AX
-	pUSH BX
+    
 	PUSH CX
-	PUSH DX   
+	
 	
 	mov bh,0
 	mov ah,02h;mover el cursor a una coordenada
@@ -31,10 +30,9 @@ GOTOXY MACRO caracter,colo
 	int 10h;llamar a la vios
 	
 
-	POP DX
+
 	POP CX
-	POP BX	
-	POP AX
+
 
 ENDM
 
@@ -82,12 +80,11 @@ inicio:
 	pedir_tecla:
 		CAPTURAR_TECLA  ; HACEMOS LA PETICION DE LA TECLA
 
-		mov CoordenadaX,14h
-		mov CoordenadaY,0ch
+        mov CoordenadaX,14h
+	    mov CoordenadaY, 0ch
 
-
-		mov cl,contador
-		mov si,cx;
+		mov cx,contador
+		mov si,contador
 
 		cmp ah,48h
 			je arriba
@@ -102,33 +99,42 @@ inicio:
 
 	salir:
 		.exit
-	arriba:
-	  GOTOXY vtext[si-1],Azul
+	arriba:                         
+	    GOTOXY vtext[si-1],Azul
 		dec si        
 		sub CoordenadaY,01h
 		loop arriba
+		
 		jmp pedir_tecla
 	abajo:
-	 	GOTOXY vtext[si-1],Amarillo
-		dec si   
-		add CoordenadaY,01h
-		loop abajo
-		jmp pedir_tecla
-		
-	izquierda:          
-	   	GOTOXY vtext[si-1],Rojo
-		dec si 
-		sub CoordenadaX,01h
-		loop izquierda
-		jmp pedir_tecla  	
+	    mov CoordenadaX,18h ; +5-1
+	    mov CoordenadaY,08h ; -5-1
+	 	jmp posicion_1  
+	 	 
+   izquierda: 
+        mov CoordenadaX,18h ; +5-1
+	    mov CoordenadaY,08h ; -5-1
+	 	jmp posicion_2         
+	   	 	
 	derecha:
 	   	GOTOXY vtext[si-1],Verde
 		dec si      
 		add CoordenadaX,01h
-		;MOV CoordenadaY, 13
 		loop derecha
-	 	jmp pedir_tecla	
-	
-	
+	 	jmp pedir_tecla
+	 	
+	posicion_1:
+	    GOTOXY vtext[si-1],Amarillo
+		dec si        
+		add CoordenadaY,01h
+		loop posicion_1
+	    jmp pedir_tecla
+	posicion_2:
+	   GOTOXY vtext[si-1],Rojo
+		dec si 
+		sub CoordenadaX,01h
+		loop posicion_2
+		jmp pedir_tecla		
+	    
 end inicio
 
