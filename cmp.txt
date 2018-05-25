@@ -1,0 +1,7 @@
+jg   mayor
+jge  mayor o igual
+jz   saltar si es cero
+je   si es igual
+jl   si es menor
+jle  si es menor o igual
+ja distinto de 
