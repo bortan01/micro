@@ -39,6 +39,10 @@ ENDM
 	
 	mensaje1 db 13,10, "USE A,S,D,W O CURSORAS PARA DIBUJAR",13,10, "$"
 	mensaje_salir db "PRECIONE ESC PARA SALIR ", 13,10, '$'
+	
+	longitudX dw 300
+	longitudY dw 150
+	
 .code
 	inicio:
 	mov ax,@data
@@ -49,32 +53,38 @@ ENDM
 	
 	PRINTF mensaje1
 	PRINTF mensaje_salir
-	mov cx,300 
+	
+	ciclo:
+		sub longitudX,20
+		sub longitudY,20
+	
+	mov cx,longitudX 
 	
 	derecha:
 	  
 		add CoordenadaY,01h
 		MOVER Verde 
 		loop derecha
-		mov cx,150 
+		mov cx,longitudY 
 	abajo:
 		add CoordenadaX,01h
 		MOVER Azul 
 		loop abajo 
-		mov cx,300
+		mov cx,longitudX
 	izquierda:
 		sub CoordenadaY,01h
 		MOVER Rojo   
 		loop izquierda
-		mov cx,150
+		mov cx,longitudY
 	
 	arriba:
 		sub CoordenadaX,01h
 		MOVER Amarillo
 		loop arriba
-		mov cx,150		
-	
-	
+		sub longitudX,20
+		sub longitudY,20
+	cmp CoordenadaX,200
+		jl ciclo
 	
 	salir:
 		.exit        
