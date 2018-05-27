@@ -27,12 +27,44 @@ GOTOXY MACRO caracter,colo
 
 ENDM
 
+BACKGRAUND MACRO
+
+		MOV AH, 06H ; DESPLAZAR LINEAS DE TEXTO HACIA ARRIBA
+		MOV AL,0; NUMERO DE LINEAS A DESPLAZAR
+		MOV BH, Fondo_Azul ; FONDO BLANCO CON PRIMER PLANO AZUL
+		
+		MOv CH, 04;LINEA DONDE COMIENZA LA VENTANA DE TEXTO
+		MOV DH, 16 ;LINEA DONDE ACABA VENTANADE TEXTO;
+		
+		MOV CL, 05 ; COLUMNA DONDE EMPIEZA VENTANA DE TEXTO
+		MOV DL, 70 ;COLUMNA DONDE ACABA VENTANA DE TEXTO
+		INT 10h
+		
+		POP DX
+		POP CX 
+		POP BX
+		POP AX
+
+ENDM
+
+CLS MACRO
+
+		MOV AH, 06H ; DESPLAZAR LINEAS DE TEXTO HACIA ARRIBA
+		MOV AL,00; NUMERO DE LINEAS A DESPLAZAR
+		MOV BH, 00 ; FONDO BLANCO CON PRIMER PLANO AZUL
+		MOv CX, 0000
+		MOV DX, 184FH 
+		INT 10h
+ENDM
+
 .model small
 .stack
 .data
 
 	CoordenadaX db 14h
 	CoordenadaY db 0ch
+	Rozado db  29
+	Fondo_Azul db 16
 		
 
 .code
@@ -40,8 +72,9 @@ inicio:
 	mov ax,@data
 	mov ds,ax
             
-   
-
+   CLS
+    BACKGRAUND
+	
 	pedir_tecla:
 		leer  
 		
@@ -81,17 +114,17 @@ inicio:
 		jmp dibujar_brazo
 	
 	dibujar_cabeza:
-		GOTOXY '*',12
+		GOTOXY '*',Rozado
 		add CoordenadaY,01
 		loop dibujar_cabeza
 		jmp pedir_tecla
 	dibujar_cuerpo:
-	    GOTOXY '*',14
+	    GOTOXY '*',Rozado
 		add CoordenadaY,01
 		loop dibujar_cuerpo
 		jmp pedir_tecla
 	dibujar_brazo:
-	    GOTOXY '*',10
+	    GOTOXY '*',Rozado
 		add CoordenadaX,02
 		add CoordenadaY,01
 		loop dibujar_brazo
@@ -101,7 +134,7 @@ inicio:
 		mov CoordenadaY,10h
 		jmp dibujar_brazo2
 	dibujar_pierna:
-	    GOTOXY '*',09
+	    GOTOXY '*',Rozado
 		add CoordenadaX,01
 		add CoordenadaY,01
 		loop dibujar_pierna
@@ -111,13 +144,13 @@ inicio:
 		mov CoordenadaY,14h
 		jmp dibujar_pierna2
 	dibujar_pierna2:
-		GOTOXY '*',09
+		GOTOXY '*',Rozado
 		sub CoordenadaX,01
 		add CoordenadaY,01
 		loop dibujar_pierna2
 		jmp pedir_tecla
 	dibujar_brazo2:
-		GOTOXY '*',10
+		GOTOXY '*',Rozado
 		sub CoordenadaX,02
 		add CoordenadaY,01
 		loop dibujar_brazo2
