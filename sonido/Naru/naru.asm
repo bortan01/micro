@@ -1,0 +1,305 @@
+;Cancion The Raising Fighting Spirit (Naruto)
+IDEAL
+DOSSEG
+MODEL small
+STACK 512
+DATASEG
+ClaveFin DB 0
+
+DO EQU 64 
+DO_S EQU 65
+RE EQU 66
+RE_S EQU 67
+MI EQU 68
+FA EQU 69
+FA_S EQU 70
+SOL EQU 71
+SOL_S  EQU 72
+LA  EQU 73
+LA_S EQU 74
+SII EQU 75
+
+DOB EQU 66 ;OK
+REB EQU 67 ;65
+MIB EQU 67
+
+Naruto 	DB 'T',35
+
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,255,220
+DB 'D',56
+DB "N",FA_S,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB "N",SOL,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+
+DB "N",SOL,100,220
+DB 'D',56
+DB "N",FA_S,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",FA_S,255,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",REB,255,220
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+
+
+
+
+
+
+
+
+
+
+
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,255,220
+DB 'D',56
+DB "N",FA_S,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB "N",SOL,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+
+
+
+DB "N",SOL,100,220
+DB 'D',56
+DB "N",FA_S,100,220
+DB 'D',56
+DB "N",DOB,100,220
+DB 'D',56
+DB "N",DOB,100,220
+DB 'D',56
+DB "N",SII,255,220
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+
+
+DB "N",DO,255,220
+DB 'D',56
+DB "N",DO,100,220
+DB 'D',56
+DB "N",RE,100,220
+DB 'D',56
+DB "N",MI,255,220
+DB 'D',56
+DB "N",RE,100,220
+DB 'D',56
+DB "N",DO,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB "N",RE,255,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DB "N",MI,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+
+DB "N",MI,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+
+
+
+DB "N",SOL,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",SOL,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",SOL,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+
+
+
+
+
+
+
+
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,255,220
+DB 'D',56
+DB "N",FA_S,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",SII,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB "N",SOL,100,220
+DB 'D',56
+DB "N",LA,100,220
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+
+DB "N",SOL,100,220
+DB 'D',56
+DB "N",FA_S,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",FA_S,255,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",MI,100,220
+DB 'D',56
+DB "N",REB,255,220
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+DB 'D',56
+
+
+DB 'X' 
+
+CODESEG
+; De SONIDO.OBJ
+EXTRN Toca:proc
+Inicia:
+	mov ax,@data ;Inicia segmento de datos
+	mov ds,ax
+	mov es,ax
+	mov si,offset Naruto ;Apunta a tabla
+	call Toca ;Ejecuta melodía
+	mov ah,4ch ;Regresa a DOS
+	mov al,[ClaveFin]
+	int 21h
+END Inicia
