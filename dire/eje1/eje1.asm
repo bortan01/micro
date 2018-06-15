@@ -1,3 +1,4 @@
+; para crear directorio
 .model small
 .stack 100h
 .data

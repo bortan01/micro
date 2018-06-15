@@ -13,13 +13,13 @@ mov     AX, @data
 mov     DS, AX
                        
 pedir:                       
-mov ah,01h
-int 21h
-mov vec[si],al
-inc si
-cmp al,0dh
-ja pedir
-jb pedir
+	mov ah,01h
+	int 21h
+	mov vec[si],al
+	inc si
+	cmp al,0dh
+	ja pedir
+	jb pedir
 
 editar:
     mov ah,3dh

@@ -28,7 +28,6 @@ abrir:
 	mov ah,09h
 	int 21h
 
-
 	mov ah, 3eh
 	int 21h
 

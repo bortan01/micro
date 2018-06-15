@@ -14,10 +14,10 @@ mov al,00
 mov cx,00
 mov dx,offset nombre
 int 21h
-
 mov bx,ax
+
 mov ah,3eh
-int 21
+int 21h
 
 mov ax,4c00h
 int 21h      
