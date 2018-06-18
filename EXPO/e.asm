@@ -3,7 +3,7 @@
 .stack
 .data 
 
-nombre db 'c:\ejemplo.txt',0 ;nombre de archivo debe terminar con 0
+nombre db 'c:\expo\ejemplo.txt',0 ;nombre de archivo debe terminar con 0
 vec db 15 dup('$')
 linea db 10,13,"$"  
 
