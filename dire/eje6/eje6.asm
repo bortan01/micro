@@ -23,8 +23,6 @@ OBTENER_DIRECTORIO MACRO
 	LEA SI,Posicion
 	int 21h
 	
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	
 	mov ah,09h
 	mov dx, offset Posicion
 	int 21h
@@ -137,16 +135,13 @@ ENDM
 	Imp db 100 dup('$')
 	Vec db 1000 dup('$') ; cantidad de espacio reservada 
 	Longitud dw 5000 ; cantidad de letras a mostrar
-	Posicion dB 10 DUP (' ')
+	Posicion dB 8 DUP (' ')
 	Raiz DB 'C:'
 .code
 inicio:
 	mov     AX, @data
 	mov     DS, AX
 
-	mov ah,09h
-	mov dx, offset Raiz
-	int 21h
 	OBTENER_DIRECTORIO
 
 	

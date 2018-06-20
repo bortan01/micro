@@ -1,0 +1,457 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+EJE.EXE -- emu8086 assembler version: 4.05  
+ 
+[ 20/06/2018  --  9:46:09 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       CLS MACRO
+[   2]        :                                       
+[   3]        :                                       MOV AH, 06H ; DESPLAZAR LINEAS DE TEXTO HACIA ARRIBA
+[   4]        :                                       MOV AL,00; NUMERO DE LINEAS A DESPLAZAR
+[   5]        :                                       MOV BH, 00 ; FONDO BLANCO CON PRIMER PLANO AZUL
+[   6]        :                                       MOv CX, 0000
+[   7]        :                                       MOV DX, 184FH
+[   8]        :                                       INT 10h
+[   9]        :                                       ENDM
+[  10]        :                                       
+[  11]        :                                       BACKGRAUND MACRO fondo,inicioY,finY,inicioX,finX
+[  12]        :                                       
+[  13]        :                                       MOV AH, 06H ; DESPLAZAR LINEAS DE TEXTO HACIA ARRIBA
+[  14]        :                                       MOV AL,0; NUMERO DE LINEAS A DESPLAZAR
+[  15]        :                                       MOV BH, fondo ; FONDO BLANCO CON PRIMER PLANO AZUL
+[  16]        :                                       
+[  17]        :                                       MOv CH, inicioY;LINEA DONDE COMIENZA LA VENTANA DE TEXTO
+[  18]        :                                       MOV DH, finY ;LINEA DONDE ACABA VENTANADE TEXTO;
+[  19]        :                                       
+[  20]        :                                       MOV CL, inicioX ; COLUMNA DONDE EMPIEZA VENTANA DE TEXTO
+[  21]        :                                       MOV DL, finX ;COLUMNA DONDE ACABA VENTANA DE TEXTO
+[  22]        :                                       INT 10h
+[  23]        :                                       
+[  24]        :                                       
+[  25]        :                                       
+[  26]        :                                       ENDM
+[  27]        :                                       
+[  28]        :                                       
+[  29]        :                                       .model small
+[  30]        :                                       .stack
+[  31]        :                                       .data
+[  32]        :                                       
+[  33]    0100: 14                                    CoordenadaX db 14h
+[  34]    0101: 0C                                    CoordenadaY db 0ch
+[  35]        :                                       
+[  36]    0102: 10                                    Fondo_Azul db 16
+[  37]    0103: 0D 0A 55 6E 69 76 65 72 73 69 64 61   Universidad db 13,10, "Universidad Nacional de El Salvador",13,10, "$"
+                64 20 4E 61 63 69 6F 6E 61 6C 20 64 
+                65 20 45 6C 20 53 61 6C 76 61 64 6F 
+                72 0D 0A 24                         
+[  38]    012B: 46 61 63 75 6C 74 61 64 20 4D 75 6C   Facultad db "Facultad Multidisciplinaria Paracentral", 13,10, '$'
+                74 69 64 69 73 63 69 70 6C 69 6E 61 
+                72 69 61 20 50 61 72 61 63 65 6E 74 
+                72 61 6C 0D 0A 24                   
+[  39]    0155: 42 6F 72 69 73 20 52 69 63 61 72 64   Nombre db "Boris Ricardo Miranda Ayala", 13,10, '$'
+                6F 20 4D 69 72 61 6E 64 61 20 41 79 
+                61 6C 61 0D 0A 24                   
+[  40]    0173: 4D 41 31 34 30 34 39 0D 0A 24         Carnet db "MA14049", 13,10, '$'
+[  41]        :                                       
+[  42]    017D: 00                                    Negro db     0
+[  43]    017E: 10                                    Morado db   16
+[  44]    017F: 30                                    Acua db     48
+[  45]    0180: 40                                    Marron db   64
+[  46]    0181: 50                                    Violeta db  80
+[  47]    0182: 60                                    Cafe db     96
+[  48]    0183: 70                                    Plateado db 112
+[  49]    0184: 80                                    Gris db     128
+[  50]    0185: 90                                    Azul  db    144
+[  51]    0186: A0                                    Verde db    160
+[  52]    0187: B0                                    Celeste db  176
+[  53]    0188: C0                                    Rojo db     192
+[  54]    0189: D0                                    Rozado db   208
+[  55]    018A: E0                                    Amarillo db 224
+[  56]    018B: F0                                    Blanco db   240
+[  57]        :                                       
+[  58]        :                                       
+[  59]        :                                       
+[  60]    018C: 03                                    L1_inicio db 3
+[  61]    018D: 06                                    L1_fin db 6
+[  62]        :                                       
+[  63]    018E: 08                                    L2_inicio db 8
+[  64]    018F: 0B                                    L2_fin db 11
+[  65]        :                                       
+[  66]    0190: 0D                                    L3_inicio db 13
+[  67]    0191: 10                                    L3_fin db 16
+[  68]        :                                       
+[  69]    0192: 12                                    L4_inicio db 18
+[  70]    0193: 15                                    L4_fin db 21
+[  71]        :                                       
+[  72]    0194: 17                                    L5_inicio db 23
+[  73]    0195: 1A                                    L5_fin db 26
+[  74]        :                                       
+[  75]    0196: 03                                    C1_inicio db 3
+[  76]    0197: 0F                                    C1_fin db 15
+[  77]        :                                       
+[  78]    0198: 12                                    C2_inicio db 18
+[  79]    0199: 1E                                    C2_fin db 30
+[  80]        :                                       
+[  81]    019A: 21                                    C3_inicio db 33
+[  82]    019B: 2D                                    C3_fin db 45
+[  83]        :                                       
+[  84]    019C: 30                                    C4_inicio db 48
+[  85]    019D: 3C                                    C4_fin db 60
+[  86]        :                                       
+[  87]    019E: 3F                                    C5_inicio db 63
+[  88]    019F: 4B                                    C5_fin db 75
+[  89]        :                                       
+[  90]        :                                       
+[  91]        :                                       
+[  92]        :                                       
+[  93]        :                                       
+[  94]        :                                       .code
+[  95]    01A0:                                       inicio:
+[  96]    01A0: B8 10 00                              mov ax,@data
+[  97]    01A3: 8E D8                                 mov ds,ax
+[  98]        :                                       
+[  99]    01A5: 50                                    push ax
+[ 100]    01A6: 53                                    push bx
+[ 101]    01A7: 51                                    push cx
+[ 102]        :                                       
+[ 103]        :                                       
+[ 104]    01A8: B4 06 B0 00 B7 00 B9 00 00 BA 4F 18   CLS
+                CD 10                               
+[ 105]        :                                       
+[ 106]    01B6: B4 06 B0 00 8A 3E 7D 00 B5 00 B6 18   BACKGRAUND Negro,0,24,00,79
+                B1 00 B2 4F CD 10                   
+[ 107]    01C8: B4 06 B0 00 8A 3E 7F 00 8A 2E 8C 00   BACKGRAUND Acua,L1_inicio,L1_fin,C1_inicio,C1_fin
+                8A 36 8D 00 8A 0E 96 00 8A 16 97 00 
+                CD 10                               
+[ 108]    01E2: B4 06 B0 00 8A 3E 88 00 8A 2E 8C 00   BACKGRAUND Rojo,L1_inicio,L1_fin,C2_inicio,C2_fin
+                8A 36 8D 00 8A 0E 98 00 8A 16 99 00 
+                CD 10                               
+[ 109]    01FC: B4 06 B0 00 8A 3E 86 00 8A 2E 8C 00   BACKGRAUND Verde,L1_inicio,L1_fin,C3_inicio,C3_fin
+                8A 36 8D 00 8A 0E 9A 00 8A 16 9B 00 
+                CD 10                               
+[ 110]    0216: B4 06 B0 00 8A 3E 87 00 8A 2E 8C 00   BACKGRAUND Celeste,L1_inicio,L1_fin,C4_inicio,C4_fin
+                8A 36 8D 00 8A 0E 9C 00 8A 16 9D 00 
+                CD 10                               
+[ 111]    0230: B4 06 B0 00 8A 3E 7E 00 8A 2E 8C 00   BACKGRAUND Morado,L1_inicio,L1_fin,C5_inicio,C5_fin
+                8A 36 8D 00 8A 0E 9E 00 8A 16 9F 00 
+                CD 10                               
+[ 112]        :                                       
+[ 113]    024A: B4 06 B0 00 8A 3E 84 00 8A 2E 8E 00   BACKGRAUND Gris,L2_inicio,L2_fin,C1_inicio,C1_fin
+                8A 36 8F 00 8A 0E 96 00 8A 16 97 00 
+                CD 10                               
+[ 114]    0264: B4 06 B0 00 8A 3E 7F 00 8A 2E 8E 00   BACKGRAUND Acua,L2_inicio,L2_fin,C2_inicio,C2_fin
+                8A 36 8F 00 8A 0E 98 00 8A 16 99 00 
+                CD 10                               
+[ 115]    027E: B4 06 B0 00 8A 3E 87 00 8A 2E 8E 00   BACKGRAUND Celeste,L2_inicio,L2_fin,C3_inicio,C3_fin
+                8A 36 8F 00 8A 0E 9A 00 8A 16 9B 00 
+                CD 10                               
+[ 116]    0298: B4 06 B0 00 8A 3E 7E 00 8A 2E 8E 00   BACKGRAUND Morado,L2_inicio,L2_fin,C4_inicio,C4_fin
+                8A 36 8F 00 8A 0E 9C 00 8A 16 9D 00 
+                CD 10                               
+[ 117]    02B2: B4 06 B0 00 8A 3E 89 00 8A 2E 8E 00   BACKGRAUND Rozado,L2_inicio,L2_fin,C5_inicio,C5_fin
+                8A 36 8F 00 8A 0E 9E 00 8A 16 9F 00 
+                CD 10                               
+[ 118]        :                                       
+[ 119]    02CC: B4 06 B0 00 8A 3E 81 00 8A 2E 90 00   BACKGRAUND Violeta,L3_inicio,L3_fin,C1_inicio,C1_fin
+                8A 36 91 00 8A 0E 96 00 8A 16 97 00 
+                CD 10                               
+[ 120]    02E6: B4 06 B0 00 8A 3E 8B 00 8A 2E 90 00   BACKGRAUND Blanco,L3_inicio,L3_fin,C2_inicio,C2_fin
+                8A 36 91 00 8A 0E 98 00 8A 16 99 00 
+                CD 10                               
+[ 121]    0300: B4 06 B0 00 8A 3E 82 00 8A 2E 90 00   BACKGRAUND Cafe,L3_inicio,L3_fin,C3_inicio,C3_fin
+                8A 36 91 00 8A 0E 9A 00 8A 16 9B 00 
+                CD 10                               
+[ 122]    031A: B4 06 B0 00 8A 3E 80 00 8A 2E 90 00   BACKGRAUND Marron,L3_inicio,L3_fin,C4_inicio,C4_fin
+                8A 36 91 00 8A 0E 9C 00 8A 16 9D 00 
+                CD 10                               
+[ 123]    0334: B4 06 B0 00 8A 3E 81 00 8A 2E 90 00   BACKGRAUND Violeta,L3_inicio,L3_fin,C5_inicio,C5_fin
+                8A 36 91 00 8A 0E 9E 00 8A 16 9F 00 
+                CD 10                               
+[ 124]        :                                       
+[ 125]    034E: B4 06 B0 00 8A 3E 8B 00 8A 2E 92 00   BACKGRAUND Blanco,L4_inicio,L4_fin,C1_inicio,C1_fin
+                8A 36 93 00 8A 0E 96 00 8A 16 97 00 
+                CD 10                               
+[ 126]    0368: B4 06 B0 00 8A 3E 7E 00 8A 2E 92 00   BACKGRAUND Morado,L4_inicio,L4_fin,C2_inicio,C2_fin
+                8A 36 93 00 8A 0E 98 00 8A 16 99 00 
+                CD 10                               
+[ 127]    0382: B4 06 B0 00 8A 3E 88 00 8A 2E 92 00   BACKGRAUND Rojo,L4_inicio,L4_fin,C3_inicio,C3_fin
+                8A 36 93 00 8A 0E 9A 00 8A 16 9B 00 
+                CD 10                               
+[ 128]    039C: B4 06 B0 00 8A 3E 8A 00 8A 2E 92 00   BACKGRAUND Amarillo,L4_inicio,L4_fin,C4_inicio,C4_fin
+                8A 36 93 00 8A 0E 9C 00 8A 16 9D 00 
+                CD 10                               
+[ 129]    03B6: B4 06 B0 00 8A 3E 87 00 8A 2E 92 00   BACKGRAUND Celeste,L4_inicio,L4_fin,C5_inicio,C5_fin
+                8A 36 93 00 8A 0E 9E 00 8A 16 9F 00 
+                CD 10                               
+[ 130]        :                                       
+[ 131]        :                                       
+[ 132]        :                                       
+[ 133]        :                                       
+[ 134]    03D0:                                       escucha:
+[ 135]    03D0: B8 03 00                              Mov ax,0003h
+[ 136]    03D3: CD 33                                 int 33h
+[ 137]        :                                       
+[ 138]        :                                       
+[ 139]    03D5: 83 FB 01                              cmp bx,1h  ;click izquierdo
+[ 140]    03D8: 74 0F                                 je pintar
+[ 141]    03DA: 83 FB 02                              cmp bx,2h  ;click derecho
+[ 142]    03DD: 74 02                                 je salir
+[ 143]    03DF: EB EF                                 jmp escucha
+[ 144]        :                                       
+[ 145]        :                                       
+[ 146]    03E1:                                       salir:
+[ 147]    03E1: 59                                    pop cx
+[ 148]    03E2: 5B                                    pop bx
+[ 149]    03E3: 58                                    pop ax
+[ 150]    03E4: B8 00 4C CD 21                        .exit
+[ 151]        :                                       
+[ 152]    03E9:                                       pintar:
+[ 153]    03E9: 83 FA 18                              cmp dx,24
+[ 154]    03EC: 7F 02                                 jg fila1
+[ 155]    03EE: EB E0                                 jmp escucha
+[ 156]        :                                       
+[ 157]    03F0:                                       fila1:
+[ 158]    03F0: 83 FA 40                              cmp dx,64
+[ 159]    03F3: 7E 03 E9 AD 00                        jg fila2
+[ 160]    03F8: 83 FA 17                              cmp dx,23
+[ 161]    03FB: 7F 02                                 jg f1c1
+[ 162]    03FD: EB D1                                 jmp escucha
+[ 163]        :                                       
+[ 164]    03FF:                                       f1c1:
+[ 165]    03FF: 81 F9 91 00                           cmp cx,145
+[ 166]    0403: 7F 1A                                 jg f1c2
+[ 167]    0405: B4 06 B0 00 B7 10 8A 2E 8C 00 8A 36   BACKGRAUND 16,L1_inicio,L1_fin,C1_inicio,C1_fin
+                8D 00 8A 0E 96 00 8A 16 97 00 CD 10 
+                                                    
+[ 168]    041D: EB B1                                 jmp escucha
+[ 169]        :                                       
+[ 170]    041F:                                       f1c2:
+[ 171]    041F: 81 F9 08 01                           cmp cx,264
+[ 172]    0423: 7F 1A                                 jg f1c3
+[ 173]    0425: B4 06 B0 00 B7 10 8A 2E 8C 00 8A 36   BACKGRAUND 16,L1_inicio,L1_fin,C2_inicio,C2_fin
+                8D 00 8A 0E 98 00 8A 16 99 00 CD 10 
+                                                    
+[ 174]    043D: EB 91                                 jmp escucha
+[ 175]        :                                       
+[ 176]    043F:                                       f1c3:
+[ 177]    043F: 81 F9 5C 01                           cmp cx,348
+[ 178]    0443: 7F 1B                                 jg f1c4
+[ 179]    0445: B4 06 B0 00 B7 10 8A 2E 8C 00 8A 36   BACKGRAUND 16,L1_inicio,L1_fin,C3_inicio,C3_fin
+                8D 00 8A 0E 9A 00 8A 16 9B 00 CD 10 
+                                                    
+[ 180]    045D: E9 70 FF                              jmp escucha
+[ 181]        :                                       
+[ 182]    0460:                                       f1c4:
+[ 183]    0460: 81 F9 F8 01                           cmp cx,504
+[ 184]    0464: 7F 1B                                 jg f1c5
+[ 185]    0466: B4 06 B0 00 B7 10 8A 2E 8C 00 8A 36   BACKGRAUND 16,L1_inicio,L1_fin,C4_inicio,C4_fin
+                8D 00 8A 0E 9C 00 8A 16 9D 00 CD 10 
+                                                    
+[ 186]    047E: E9 4F FF                              jmp escucha
+[ 187]    0481:                                       f1c5:
+[ 188]    0481: 81 F9 61 02                           cmp cx,609
+[ 189]    0485: 7E 03 E9 46 FF                        jg escucha
+[ 190]    048A: B4 06 B0 00 B7 10 8A 2E 8C 00 8A 36   BACKGRAUND 16,L1_inicio,L1_fin,C5_inicio,C5_fin
+                8D 00 8A 0E 9E 00 8A 16 9F 00 CD 10 
+                                                    
+[ 191]    04A2: E9 2B FF                              jmp escucha
+[ 192]        :                                       
+[ 193]        :                                       
+[ 194]        :                                       
+[ 195]    04A5:                                       fila2:
+[ 196]    04A5: 83 FA 68                              cmp dx,104
+[ 197]    04A8: 7E 03 E9 B0 00                        jg fila3
+[ 198]    04AD: 83 FA 17                              cmp dx,23
+[ 199]    04B0: 7F 03                                 jg f2c1
+[ 200]    04B2: E9 1B FF                              jmp escucha
+[ 201]        :                                       
+[ 202]    04B5:                                       f2c1:
+[ 203]    04B5: 81 F9 91 00                           cmp cx,145
+[ 204]    04B9: 7F 1B                                 jg f2c2
+[ 205]    04BB: B4 06 B0 00 B7 10 8A 2E 8E 00 8A 36   BACKGRAUND 16,L2_inicio,L2_fin,C1_inicio,C1_fin
+                8F 00 8A 0E 96 00 8A 16 97 00 CD 10 
+                                                    
+[ 206]    04D3: E9 FA FE                              jmp escucha
+[ 207]        :                                       
+[ 208]    04D6:                                       f2c2:
+[ 209]    04D6: 81 F9 08 01                           cmp cx,264
+[ 210]    04DA: 7F 1B                                 jg f2c3
+[ 211]    04DC: B4 06 B0 00 B7 10 8A 2E 8E 00 8A 36   BACKGRAUND 16,L2_inicio,L2_fin,C2_inicio,C2_fin
+                8F 00 8A 0E 98 00 8A 16 99 00 CD 10 
+                                                    
+[ 212]    04F4: E9 D9 FE                              jmp escucha
+[ 213]        :                                       
+[ 214]    04F7:                                       f2c3:
+[ 215]    04F7: 81 F9 5C 01                           cmp cx,348
+[ 216]    04FB: 7F 1B                                 jg f2c4
+[ 217]    04FD: B4 06 B0 00 B7 10 8A 2E 8E 00 8A 36   BACKGRAUND 16,L2_inicio,L2_fin,C3_inicio,C3_fin
+                8F 00 8A 0E 9A 00 8A 16 9B 00 CD 10 
+                                                    
+[ 218]    0515: E9 B8 FE                              jmp escucha
+[ 219]        :                                       
+[ 220]    0518:                                       f2c4:
+[ 221]    0518: 81 F9 F8 01                           cmp cx,504
+[ 222]    051C: 7F 1B                                 jg f2c5
+[ 223]    051E: B4 06 B0 00 B7 10 8A 2E 8E 00 8A 36   BACKGRAUND 16,L2_inicio,L2_fin,C4_inicio,C4_fin
+                8F 00 8A 0E 9C 00 8A 16 9D 00 CD 10 
+                                                    
+[ 224]    0536: E9 97 FE                              jmp escucha
+[ 225]    0539:                                       f2c5:
+[ 226]    0539: 81 F9 61 02                           cmp cx,609
+[ 227]    053D: 7E 03 E9 8E FE                        jg escucha
+[ 228]    0542: B4 06 B0 00 B7 10 8A 2E 8E 00 8A 36   BACKGRAUND 16,L2_inicio,L2_fin,C5_inicio,C5_fin
+                8F 00 8A 0E 9E 00 8A 16 9F 00 CD 10 
+                                                    
+[ 229]    055A: E9 73 FE                              jmp escucha
+[ 230]        :                                       
+[ 231]    055D:                                       fila3:
+[ 232]    055D: 81 FA 90 00                           cmp dx,144
+[ 233]    0561: 7E 03 E9 B0 00                        jg fila4
+[ 234]    0566: 83 FA 17                              cmp dx,23
+[ 235]    0569: 7F 03                                 jg f3c1
+[ 236]    056B: E9 62 FE                              jmp escucha
+[ 237]        :                                       
+[ 238]    056E:                                       f3c1:
+[ 239]    056E: 81 F9 91 00                           cmp cx,145
+[ 240]    0572: 7F 1B                                 jg f3c2
+[ 241]    0574: B4 06 B0 00 B7 10 8A 2E 90 00 8A 36   BACKGRAUND 16,L3_inicio,L3_fin,C1_inicio,C1_fin
+                91 00 8A 0E 96 00 8A 16 97 00 CD 10 
+                                                    
+[ 242]    058C: E9 41 FE                              jmp escucha
+[ 243]        :                                       
+[ 244]    058F:                                       f3c2:
+[ 245]    058F: 81 F9 08 01                           cmp cx,264
+[ 246]    0593: 7F 1B                                 jg f3c3
+[ 247]    0595: B4 06 B0 00 B7 10 8A 2E 90 00 8A 36   BACKGRAUND 16,L3_inicio,L3_fin,C2_inicio,C2_fin
+                91 00 8A 0E 98 00 8A 16 99 00 CD 10 
+                                                    
+[ 248]    05AD: E9 20 FE                              jmp escucha
+[ 249]        :                                       
+[ 250]    05B0:                                       f3c3:
+[ 251]    05B0: 81 F9 5C 01                           cmp cx,348
+[ 252]    05B4: 7F 1B                                 jg f3c4
+[ 253]    05B6: B4 06 B0 00 B7 10 8A 2E 90 00 8A 36   BACKGRAUND 16,L3_inicio,L3_fin,C3_inicio,C3_fin
+                91 00 8A 0E 9A 00 8A 16 9B 00 CD 10 
+                                                    
+[ 254]    05CE: E9 FF FD                              jmp escucha
+[ 255]        :                                       
+[ 256]    05D1:                                       f3c4:
+[ 257]    05D1: 81 F9 F8 01                           cmp cx,504
+[ 258]    05D5: 7F 1B                                 jg f3c5
+[ 259]    05D7: B4 06 B0 00 B7 10 8A 2E 90 00 8A 36   BACKGRAUND 16,L3_inicio,L3_fin,C4_inicio,C4_fin
+                91 00 8A 0E 9C 00 8A 16 9D 00 CD 10 
+                                                    
+[ 260]    05EF: E9 DE FD                              jmp escucha
+[ 261]    05F2:                                       f3c5:
+[ 262]    05F2: 81 F9 61 02                           cmp cx,609
+[ 263]    05F6: 7E 03 E9 D5 FD                        jg escucha
+[ 264]    05FB: B4 06 B0 00 B7 10 8A 2E 90 00 8A 36   BACKGRAUND 16,L3_inicio,L3_fin,C5_inicio,C5_fin
+                91 00 8A 0E 9E 00 8A 16 9F 00 CD 10 
+                                                    
+[ 265]    0613: E9 BA FD                              jmp escucha
+[ 266]        :                                       
+[ 267]    0616:                                       fila4:
+[ 268]    0616: 81 FA B0 00                           cmp dx,176
+[ 269]    061A: 7E 03 E9 B1 FD                        jg escucha
+[ 270]    061F: 83 FA 17                              cmp dx,23
+[ 271]    0622: 7F 03                                 jg f4c1
+[ 272]    0624: E9 A9 FD                              jmp escucha
+[ 273]        :                                       
+[ 274]    0627:                                       f4c1:
+[ 275]    0627: 81 F9 91 00                           cmp cx,145
+[ 276]    062B: 7F 1B                                 jg f4c2
+[ 277]    062D: B4 06 B0 00 B7 10 8A 2E 92 00 8A 36   BACKGRAUND 16,L4_inicio,L4_fin,C1_inicio,C1_fin
+                93 00 8A 0E 96 00 8A 16 97 00 CD 10 
+                                                    
+[ 278]    0645: E9 88 FD                              jmp escucha
+[ 279]        :                                       
+[ 280]    0648:                                       f4c2:
+[ 281]    0648: 81 F9 08 01                           cmp cx,264
+[ 282]    064C: 7F 1B                                 jg f4c3
+[ 283]    064E: B4 06 B0 00 B7 10 8A 2E 92 00 8A 36   BACKGRAUND 16,L4_inicio,L4_fin,C2_inicio,C2_fin
+                93 00 8A 0E 98 00 8A 16 99 00 CD 10 
+                                                    
+[ 284]    0666: E9 67 FD                              jmp escucha
+[ 285]        :                                       
+[ 286]    0669:                                       f4c3:
+[ 287]    0669: 81 F9 5C 01                           cmp cx,348
+[ 288]    066D: 7F 1B                                 jg f4c4
+[ 289]    066F: B4 06 B0 00 B7 10 8A 2E 92 00 8A 36   BACKGRAUND 16,L4_inicio,L4_fin,C3_inicio,C3_fin
+                93 00 8A 0E 9A 00 8A 16 9B 00 CD 10 
+                                                    
+[ 290]    0687: E9 46 FD                              jmp escucha
+[ 291]        :                                       
+[ 292]    068A:                                       f4c4:
+[ 293]    068A: 81 F9 F8 01                           cmp cx,504
+[ 294]    068E: 7F 1B                                 jg f4c5
+[ 295]    0690: B4 06 B0 00 B7 10 8A 2E 92 00 8A 36   BACKGRAUND 16,L4_inicio,L4_fin,C4_inicio,C4_fin
+                93 00 8A 0E 9C 00 8A 16 9D 00 CD 10 
+                                                    
+[ 296]    06A8: E9 25 FD                              jmp escucha
+[ 297]    06AB:                                       f4c5:
+[ 298]    06AB: 81 F9 61 02                           cmp cx,609
+[ 299]    06AF: 7E 03 E9 1C FD                        jg escucha
+[ 300]    06B4: B4 06 B0 00 B7 10 8A 2E 92 00 8A 36   BACKGRAUND 16,L4_inicio,L4_fin,C5_inicio,C5_fin
+                93 00 8A 0E 9E 00 8A 16 9F 00 CD 10 
+                                                    
+[ 301]    06CC: E9 01 FD                              jmp escucha
+[ 302]        :                                       
+[ 303]        :                                       
+[ 304]        :                                       
+[ 305]        :                                       
+[ 306]        :                                       
+[ 307]        :                                       end inicio
+[ 308]        :                                       
+[ 309]        :                                       
+[ 310]        :                                       
+[ 311]        :                                       
+[ 312]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: CF      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 05      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 01      -   SP - stack pointer (h.byte)
+0012: 4C      -   check sum (l.byte)
+0013: A6      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 1A      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 01      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 1A      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================

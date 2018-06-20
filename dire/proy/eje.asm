@@ -103,55 +103,44 @@ push cx
 
 CLS
 
+
+
 BACKGRAUND Negro,0,24,00,79
-BACKGRAUND Azul,L1_inicio,L1_fin,C1_inicio,C1_fin
+BACKGRAUND Acua,L1_inicio,L1_fin,C1_inicio,C1_fin
 BACKGRAUND Rojo,L1_inicio,L1_fin,C2_inicio,C2_fin
 BACKGRAUND Verde,L1_inicio,L1_fin,C3_inicio,C3_fin
 BACKGRAUND Celeste,L1_inicio,L1_fin,C4_inicio,C4_fin
 BACKGRAUND Morado,L1_inicio,L1_fin,C5_inicio,C5_fin
 
-BACKGRAUND Gris,L2_inicio,L2_fin,C1_inicio,C1_fin
-BACKGRAUND 112,L2_inicio,L2_fin,C2_inicio,C2_fin
-BACKGRAUND 128,L2_inicio,L2_fin,C3_inicio,C3_fin
-BACKGRAUND 144,L2_inicio,L2_fin,C4_inicio,C4_fin
-BACKGRAUND 160,L2_inicio,L2_fin,C5_inicio,C5_fin
+BACKGRAUND Celeste,L2_inicio,L2_fin,C1_inicio,C1_fin
+BACKGRAUND Acua,L2_inicio,L2_fin,C2_inicio,C2_fin
+BACKGRAUND Celeste,L2_inicio,L2_fin,C3_inicio,C3_fin
+BACKGRAUND Morado,L2_inicio,L2_fin,C4_inicio,C4_fin
+BACKGRAUND Rozado,L2_inicio,L2_fin,C5_inicio,C5_fin
 
-BACKGRAUND 176,L3_inicio,L3_fin,C1_inicio,C1_fin
-BACKGRAUND 192,L3_inicio,L3_fin,C2_inicio,C2_fin
-BACKGRAUND 208,L3_inicio,L3_fin,C3_inicio,C3_fin
-BACKGRAUND 224,L3_inicio,L3_fin,C4_inicio,C4_fin
-BACKGRAUND 240,L3_inicio,L3_fin,C5_inicio,C5_fin
+BACKGRAUND Violeta,L3_inicio,L3_fin,C1_inicio,C1_fin
+BACKGRAUND Blanco,L3_inicio,L3_fin,C2_inicio,C2_fin
+BACKGRAUND Cafe,L3_inicio,L3_fin,C3_inicio,C3_fin
+BACKGRAUND Marron,L3_inicio,L3_fin,C4_inicio,C4_fin
+BACKGRAUND Violeta,L3_inicio,L3_fin,C5_inicio,C5_fin
 
-BACKGRAUND 255,L4_inicio,L4_fin,C1_inicio,C1_fin
+BACKGRAUND Blanco,L4_inicio,L4_fin,C1_inicio,C1_fin
 BACKGRAUND Morado,L4_inicio,L4_fin,C2_inicio,C2_fin
 BACKGRAUND Rojo,L4_inicio,L4_fin,C3_inicio,C3_fin
 BACKGRAUND Amarillo,L4_inicio,L4_fin,C4_inicio,C4_fin
 BACKGRAUND Celeste,L4_inicio,L4_fin,C5_inicio,C5_fin
 
 
-
-Mov ax,0000h; Averigua si hay un ratón conectado
+Mov ax,0000h; Averigua si hay un ratÃ³n conectado
 int 33h  
 
-Mov ax,0001h; Mostrar el cursor del ratón en la pantalla
+Mov ax,0001h; Mostrar el cursor del ratÃ³n en la pantalla
 int 33h  
-
-Mov ax,0007h;Determinar zona de movimiento horizontal para el cursor
-Mov cx,30h;Posicion virtual minima del cursor del raton
-Mov dx,100h;;Posicion virtual maxima del cursor del raton
-int 33h   
-
-Mov ax,0008h;Determinar zona de movimiento vertical para el cursor
-Mov cx,40h;Posicion virtual minima del cursor del raton
-Mov dx,125h;;Posicion virtual maxima del cursor del raton
-int 33h   
-
-mov ah,08h
-int 21h 
-
 
 escucha:
 Mov ax,0003h
+MOV BH,00
+MOV DX,00H
 int 33h
 
 
@@ -169,13 +158,173 @@ pop ax
 .exit
 
 pintar:
-cmp dx,30
-jl fila1
+cmp dx,24
+jg fila1
 jmp escucha
 
 fila1:
- BACKGRAUND Verde,L1_inicio,L1_fin,C1_inicio,C1_fin
-jmp escucha
+    cmp dx,64
+    jg saltoA      
+        cmp dx,23
+        jg f1c1
+        jmp escucha
+        
+        f1c1:
+            cmp cx,145
+            jg f1c2
+            BACKGRAUND 16,L1_inicio,L1_fin,C1_inicio,C1_fin
+            jmp escucha
+        
+        f1c2:
+            cmp cx,264
+            jg f1c3
+            BACKGRAUND 16,L1_inicio,L1_fin,C2_inicio,C2_fin
+            jmp escucha   
+        saltoA: 
+            jmp fila2
+        
+        f1c3:
+            cmp cx,348
+            jg f1c4
+            BACKGRAUND 16,L1_inicio,L1_fin,C3_inicio,C3_fin
+            jmp escucha
+        
+        f1c4:
+            cmp cx,504
+            jg f1c5
+            BACKGRAUND 16,L1_inicio,L1_fin,C4_inicio,C4_fin
+            jmp escucha  
+        f1c5:
+            cmp cx,609
+            jg escucha1
+            BACKGRAUND 16,L1_inicio,L1_fin,C5_inicio,C5_fin
+            jmp escucha
+        escucha1:
+            jmp escucha
+   
+   
+
+fila2:
+    cmp dx,104
+    jg saltoB
+        cmp dx,23
+        jg f2c1
+        jmp escucha
+        
+        f2c1:
+            cmp cx,145
+            jg f2c2
+            BACKGRAUND 16,L2_inicio,L2_fin,C1_inicio,C1_fin
+            jmp escucha
+        
+        f2c2:
+            cmp cx,264
+            jg f2c3
+            BACKGRAUND 16,L2_inicio,L2_fin,C2_inicio,C2_fin
+            jmp escucha   
+        saltoB: 
+            jmp fila3
+        
+        f2c3:
+            cmp cx,348
+            jg f2c4
+            BACKGRAUND 16,L2_inicio,L2_fin,C3_inicio,C3_fin
+            jmp escucha
+        
+        f2c4:
+            cmp cx,504
+            jg f2c5
+            BACKGRAUND 16,L2_inicio,L2_fin,C4_inicio,C4_fin
+            jmp escucha  
+        f2c5:
+            cmp cx,609
+            jg escha2
+            BACKGRAUND 16,L2_inicio,L2_fin,C5_inicio,C5_fin
+            jmp escucha
+        escha2:
+            jmp escucha
+
+fila3:
+    cmp dx,144
+    jg saltoC
+        cmp dx,23
+        jg f3c1
+        jmp escucha
+        
+        f3c1:
+            cmp cx,145
+            jg f3c2
+            BACKGRAUND 16,L3_inicio,L3_fin,C1_inicio,C1_fin
+            jmp escucha
+        
+        f3c2:
+            cmp cx,264
+            jg f3c3
+            BACKGRAUND 16,L3_inicio,L3_fin,C2_inicio,C2_fin
+            jmp escucha    
+        saltoC:
+            jmp fila4
+        
+        f3c3:
+            cmp cx,348
+            jg f3c4
+            BACKGRAUND 16,L3_inicio,L3_fin,C3_inicio,C3_fin
+            jmp escucha
+        
+        f3c4:
+            cmp cx,504
+            jg f3c5
+            BACKGRAUND 16,L3_inicio,L3_fin,C4_inicio,C4_fin
+            jmp escucha  
+        f3c5:
+            cmp cx,609
+            jg escucha3
+            BACKGRAUND 16,L3_inicio,L3_fin,C5_inicio,C5_fin
+            jmp escucha  
+        escucha3:
+            jmp escucha
+
+fila4:
+    cmp dx,176
+    jg saltoD
+        cmp dx,23
+        jg f4c1
+        jmp escucha
+        
+        f4c1:
+            cmp cx,145
+            jg f4c2
+            BACKGRAUND 16,L4_inicio,L4_fin,C1_inicio,C1_fin
+            jmp escucha
+        
+        f4c2:
+            cmp cx,264
+            jg f4c3
+            BACKGRAUND 16,L4_inicio,L4_fin,C2_inicio,C2_fin
+            jmp escucha
+        saltoD:
+            jmp escucha
+        
+        f4c3:
+            cmp cx,348
+            jg f4c4
+            BACKGRAUND 16,L4_inicio,L4_fin,C3_inicio,C3_fin
+            jmp escucha
+        
+        f4c4:
+            cmp cx,504
+            jg f4c5
+            BACKGRAUND 16,L4_inicio,L4_fin,C4_inicio,C4_fin
+            jmp escucha  
+        f4c5:
+            cmp cx,609
+            jg escucha4
+            BACKGRAUND 16,L4_inicio,L4_fin,C5_inicio,C5_fin
+            jmp escucha
+        escucha4:
+            jmp escucha
+
+
 
 
 
