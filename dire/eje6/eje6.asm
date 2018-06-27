@@ -18,13 +18,29 @@ BORRAR_DIRECTORIO MACRO ruta
 ENDM
 
 OBTENER_DIRECTORIO MACRO
-	mov ah, 47H
-	mov dL, 0
-	LEA SI,Posicion
+	
+	mov ah,09h
+	mov dx, offset Aclaracion ; UN MENSAJIO
 	int 21h
 	
 	mov ah,09h
-	mov dx, offset Posicion
+	mov dx, offset Raiz ; terminando la cadena
+	int 21h
+	
+	mov ah, 47H
+	mov dL, 0
+	LEA SI,Buff
+	int 21h
+	
+	mov ah,09h
+	mov dx, offset Buff  ; imprimiendo ruta
+	int 21h
+	
+	mov si,00
+	mov Buff,00
+	
+	mov ah,09h
+	mov dx, offset Fin ; terminando la cadena
 	int 21h
 	
 ENDM
@@ -130,20 +146,24 @@ ENDM
 .stack 100h
 .data
 	
+	Aclaracion db 'SU RUTA ACTUAL ES:',13,10,'$'
 	Ruta db 'OTRO',0; El Nombre est  fijo para el ejemplo
-	Nombre db 'prueba.txt',0
 	Imp db 100 dup('$')
+	Raiz db 'C:\',0
 	Vec db 1000 dup('$') ; cantidad de espacio reservada 
 	Longitud dw 5000 ; cantidad de letras a mostrar
-	Posicion dB 8 DUP (' ')
-	Raiz DB 'C:'
+	Buff dB 8 DUP (' ')
+    cls_buffer DB '                            ',13,10, '$'
+	Fin DB '',13,10, '$'
+	
+	
 .code
 inicio:
 	mov     AX, @data
 	mov     DS, AX
 
 	OBTENER_DIRECTORIO
-
+		
 	
 	Mov ax,4c00h
 	int 21h      
